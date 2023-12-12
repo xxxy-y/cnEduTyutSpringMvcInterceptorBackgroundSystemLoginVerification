@@ -22,7 +22,7 @@ public class UserController {
         return "main";
     }
 
-    @GetMapping("/toLogin")
+    @PostMapping("/toLogin")
     public String toLoginPage() {
         return "login";
     }
@@ -36,9 +36,6 @@ public class UserController {
     public String login(@NotNull User user, Model model, HttpSession httpSession) {
         String username = user.getUsername();
         String password = user.getPassword();
-//        User user = new User();
-//        user.setUsername(username);
-//        user.setPassword(password);
         if ("admin".equals(username) && "123456".equals(password)) {
             httpSession.setAttribute("USER_SESSION", user);
             return "main";
@@ -51,6 +48,6 @@ public class UserController {
     public String logout(@NotNull HttpSession httpSession) {
         // 删除HttpSession
         httpSession.invalidate();
-        return "forward:toLogin";
+        return "redirect:toLogin";
     }
 }
